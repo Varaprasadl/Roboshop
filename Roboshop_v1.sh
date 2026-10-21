@@ -20,13 +20,13 @@ do
 
         if [$instance != "frontend"]; then
                     IP=$(aws ec2 describe-instances \
-                    --instance-ids "$ami_id" \
+                    --instance-ids $instance_id \
                     --query "Reservations[*].Instances[*].PrivateIpAddress" \
                     --output text)
                 route53_record="$Instance.$domain_name"
             else
                     IP=$(aws ec2 describe-instances \
-                    --instance-ids "$ami_id" \
+                    --instance-ids $instance_id \
                     --query "Reservations[*].Instances[*].PublicIpAddress" \
                     --output text)
                 route53_record="$domain_name"                
