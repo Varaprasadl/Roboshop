@@ -16,7 +16,7 @@ do
                         --tag-specifications 'ResourceType=instance,Tags=[{Key=Name,Value=Roboshop-'$instance'}]'\
                         --query 'Instances[0].InstanceId' \
     )
-echo "Instance ID :: $instance_id"
+    echo "Instance ID :: $instance_id"
 
         if [$instance_id != "frontend"]; then
                     IP=$(aws ec2 describe-instances \
@@ -31,6 +31,6 @@ echo "Instance ID :: $instance_id"
                     --output text)
                 route53_record=$domain_name                
         if    
-echo "route53_record is:: $route53_record"
+    echo "route53_record is:: $route53_record"
 
 done
