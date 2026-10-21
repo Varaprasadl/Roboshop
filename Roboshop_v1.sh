@@ -12,7 +12,7 @@ do
     aws ec2 run-instances \
         --image-id "$ami_id" \
         --instance-type "t3.micro" \
-        --security-group-ids Roboshop-common, Roboshop-"$instance" \
+        --security-group-ids Roboshop-Common, Roboshop-"$instance" \
         --tag-specifications 'ResourceType=instance,Tags=[{Key=Name,Value=Roboshop-'$instance'}]'\
         --query 'Instances[0].InstanceId' \
         --output text
