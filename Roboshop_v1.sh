@@ -2,7 +2,7 @@
 
 ami_id="ami-0055977a6e828a4f4"
 domain_name="kamesh.store"
-hosted_zone_id=""
+hosted_zone_id="ff"
 
 for instance in $@
 
