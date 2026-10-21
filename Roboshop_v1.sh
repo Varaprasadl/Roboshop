@@ -30,7 +30,7 @@ do
                     --query "Reservations[*].Instances[*].PublicIpAddress" \
                     --output text)
                 route53_record=$domain_name                
-        if    
+        fi    
     echo "route53_record is:: $route53_record"
 
 done
