@@ -16,7 +16,7 @@ N="\e[0m"
 mkdir -p "$log_folder"
 
 if [ $user_id -ne 0 ]; then
-    echo "${R}Please run the script with root access!${N}"
+    echo -e "${R}Please run the script with root access!${N}"
     exit 1
 fi
 
