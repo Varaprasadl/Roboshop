@@ -12,18 +12,10 @@ G="\e[32m"
 Y="\e[33m"
 N="\e[0m"
 
-mkdir "$log_folder"
+mkdir -p "$log_folder"
 timestamp() {
                 date "+%F %T"
             }
-
-validation(){
-    if [ $1 -ne 0 ]; then
-        echo -e "$(timestamp)=======[Error]===${2}..${R}Failed${N}" | tee -a $log_file
-        else
-        echo -e "$(timestamp)=======[Error]===${2}..${R}Failed${N}" | tee -a $log_file
-    fi
-    }
 
 
 for instance in $@
@@ -39,7 +31,16 @@ do
   --output text)
 
   echo "$instance ID :: $instance_id"
-    validation $? "Instance creation"
+validation $? "Instance creation"
+
+  validation(){
+    if [ $1 -ne 0 ]; then
+        echo -e "$(timestamp)=======[Error]===${2}..${R}Failed${N}" | tee -a $log_file
+        else
+        echo -e "$(timestamp)=======[Error]===${2}..${R}Failed${N}" | tee -a $log_file
+    fi
+    }
+
 
 
 
