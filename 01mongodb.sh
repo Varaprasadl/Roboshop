@@ -21,14 +21,20 @@ echo "Script stared time :: " $(timestamp)
 
 validation() {
     if [ $1 -ne 0 ]; then
-        echo -e "$(timestamp) ==== [Error] ${2}.. ${R}Failed${N}"
+        echo -e "$(timestamp) ==== [Error] ${2}.. ${R}Failed${N}" | tee -a $log_file
     else
-        echo -e "$(timestamp) ==== [Info] ${2}.. ${Y}Success${N}"
+        echo -e "$(timestamp) ==== [Info] ${2}.. ${Y}Success${N}" | tee -a $log_file
+    else
     fi
 }
 
+
+cp mongo.repo /etc/yum.repos.d/mongo.repo
+validation $? "Adding Mongodb repo"
+
+
 dnf install mongodb-org -y
-validation $? "Mongodb is insatlled"
+validation $? "Mongodb is installation"
 
 
 systemctl enable mongod
