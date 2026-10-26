@@ -18,10 +18,10 @@ echo "Script started at : $(date +"%F %T")"
 
 
 validate(){
-    if [ $1 -ne 0 ]; then
-        echo "${2}..[Error] ${R}Failed{N}"
+    if [ $? -ne 0 ]; then
+        echo "${1}..[Error] ${R}Failed{N}"
         else
-        echo "${2}..[Info] ${R}Failed{N}"
+        echo "${1}..[Info] ${R}Failed{N}"
     fi
 }
 
