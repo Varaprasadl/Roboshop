@@ -22,7 +22,7 @@ validation(){
     if [ $1 -ne 0 ]; then
         echo -e "$(timestamp)=======[Error]===${2}..${R}Failed${N}" | tee -a $log_file
         else
-        echo -e "$(timestamp)=======[Info]===${2}..${G}Failed${N}" | tee -a $log_file
+        echo -e "$(timestamp)=======[Info]===${2}..${G}Success${N}" | tee -a $log_file
     fi
     }
 
@@ -86,7 +86,7 @@ aws route53 change-resource-record-sets \
 
 
 
-echo "$instance r53 :: r53_record"
+echo "$instance r53 :: $r53_record"
 validation $? "r53_record creation"
 
 done
