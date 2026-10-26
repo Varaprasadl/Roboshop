@@ -21,9 +21,9 @@ echo "Script stared time :: " $(timestamp)
 
 validation() {
     if [ $1 -ne 0 ]; then
-        echo "$(timestamp) ==== [Error] ${2}.. ${R} Failed ${N}"
+        echo "$(timestamp) ==== [Error] ${2}.. ${R}Failed${N}"
     else
-        echo "$(timestamp) ==== [Info] ${2}.. ${Y} Success ${N}"
+        echo "$(timestamp) ==== [Info] ${2}.. ${Y}Success${N}"
     fi
 }
 
