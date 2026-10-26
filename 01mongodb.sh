@@ -48,4 +48,5 @@ validation $? "file update"
 systemctl restart mongod
 validation $? "Restart"
 
-
+dnf remove mongodb-org -y &>> $log_file
+validation $? "Mongodb is removing"
