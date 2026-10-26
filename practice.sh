@@ -65,7 +65,7 @@ validation $? "Ip & r53 url "
 #R53 records
 
 aws route53 change-resource-record-sets \
-    --hosted-zone-id "$hosted_zone_id" \
+    --hosted-zone-id $hosted_zone_id \
     --change-batch '{
         "Changes": [
             {
