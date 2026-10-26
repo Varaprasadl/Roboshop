@@ -13,6 +13,8 @@ if [ $user_id -ne 0 ]; then
     exit 1
 fi
 
+mkdir -p $log_folder
+
 timestamp() {
     date "+%F %T"
 }
@@ -27,7 +29,6 @@ validation() {
     fi
 }
 
-mkdir -p $log_folder
 
 cp mongo.repo /etc/yum.repos.d/mongo.repo
 validation $? "Adding Mongodb repo"
