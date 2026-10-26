@@ -3,6 +3,10 @@
 log_folder="var/log/roboshop"
 log_file="$log_folder/${0}.log"
 user_id=$(id -u)
+R="/e[31m"
+G="/e[32m"
+Y="/e[33m"
+N="/e[0m"
 
 if [ $user_id -ne 0 ]; then
     echo "Please run this script with root access!"
@@ -17,11 +21,12 @@ echo "Script stared time :: " $(timestamp)
 
 validation() {
     if [ $1 -ne 0 ]; then
-        echo "$(timestamp) ==== [Error] ${2}.. Failed"
+        echo "$(timestamp) ==== [Error] ${2}.. ${R} Failed ${N}"
     else
-        echo "$(timestamp) ==== [Info] ${2}.. Success"
+        echo "$(timestamp) ==== [Info] ${2}.. ${Y} Success ${N}"
     fi
 }
 
 echo "Script completed " $(timestamp)
 validation $? Function
+
