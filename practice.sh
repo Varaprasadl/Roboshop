@@ -12,8 +12,6 @@ G="\e[32m"
 Y="\e[33m"
 N="\e[0m"
 
-for instance in $@
-
 timestamp() {
                 date "+%F %T"
             }
@@ -24,6 +22,9 @@ validation(){
         else
         echo -e "$(timestamp)=======[Error]===${2}..${R}Failed${N}" | tee -a $log_file
     }
+
+    
+for instance in $@
 
 do
     instance_id=$(aws ec2 run-instances \
