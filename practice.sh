@@ -21,9 +21,10 @@ validation(){
         echo -e "$(timestamp)=======[Error]===${2}..${R}Failed${N}" | tee -a $log_file
         else
         echo -e "$(timestamp)=======[Error]===${2}..${R}Failed${N}" | tee -a $log_file
+    fi
     }
 
-    
+
 for instance in $@
 
 do
