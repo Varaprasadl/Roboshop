@@ -26,7 +26,7 @@ do
 
     #Getting Public and private IP
 
-    if [ "$instance" != "frontend"]; then
+    if [ "$instance" != "frontend" ]; then
                 id=$(aws ec2 describe-instances \
                     --instance-ids "$instance_id" \
                     --query 'Reservations[0].Instances[0].PublicIpAddress' \
