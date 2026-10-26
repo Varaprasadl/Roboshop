@@ -14,3 +14,14 @@ timestamp() {
 }
 
 echo "Script stared time :: " $(timestamp)
+
+validation() {
+    if [ $1 -ne 0 ]; then
+        echo "$(timestamp) ==== [Error] ${2}.. Failed"
+    else
+        echo "$(timestamp) ==== [Info] ${2}.. Success"
+    fi
+}
+
+echo "Script completed " $(timestamp)
+validate $? Function
