@@ -18,6 +18,15 @@ timestamp() {
             }
 
 
+validation(){
+    if [ $1 -ne 0 ]; then
+        echo -e "$(timestamp)=======[Error]===${2}..${R}Failed${N}" | tee -a $log_file
+        else
+        echo -e "$(timestamp)=======[Error]===${2}..${R}Failed${N}" | tee -a $log_file
+    fi
+    }
+
+    
 for instance in $@
 
 do
@@ -33,13 +42,7 @@ do
   echo "$instance ID :: $instance_id"
 validation $? "Instance creation"
 
-  validation(){
-    if [ $1 -ne 0 ]; then
-        echo -e "$(timestamp)=======[Error]===${2}..${R}Failed${N}" | tee -a $log_file
-        else
-        echo -e "$(timestamp)=======[Error]===${2}..${R}Failed${N}" | tee -a $log_file
-    fi
-    }
+  
 
 
 
