@@ -11,16 +11,36 @@ for instance in $@
 do
     echo "$instance instance is installing"
 
+    #Getting instance ID
+
     instance_id=$(aws ec2 run-instances \
-                --image-id ami-0055977a6e828a4f4 \
-                --instance-type t3.micro \
-                --security-groups roboshop-common \
+                --image-id $image_id \
+                --instance-type $instance_type \
+                --security-groups "'roboshop-common' 'roboshop-$instance'" \
                 --count 1 \
-                --tag-specifications 'ResourceType=instance,Tags=[{Key=Name,Value="shell"}]' \
+                --tag-specifications 'ResourceType=instance,Tags=[{Key=Name,Value='$instance'}]' \
                 --query 'Instances[0].InstanceId' \
                 --output text
                 )
     
     echo "Instance Id :: $instance_id"
+
+    #Getting Public and private IP
+
+    if [ $instance -ne "frontend"]; then
+                id=$(aws ec2 describe-instances \
+                    --instance-ids $instance_id \
+                    --query 'Reservations[0].Instances[0].PublicIpAddress' \
+                    --output text
+                    )
+        Route54=$instance.$domain_name
+    else
+                id=$(aws ec2 describe-instances \
+                    --instance-ids $instance_id \
+                    --query 'Reservations[0].Instances[0].PrivateIpAddress' \
+                    --output text
+                    )
+        Route54=$domain_name
+    fi
 
 done
