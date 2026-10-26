@@ -76,7 +76,7 @@ aws route53 change-resource-record-sets \
                     "TTL": 1,
                     "ResourceRecords": [
                         {
-                            "Value": "'$id'"
+                            "Value": "'$ip'"
                         }
                     ]
                 }
