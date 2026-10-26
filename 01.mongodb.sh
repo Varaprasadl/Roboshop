@@ -24,6 +24,6 @@ if [ $user_id -ne 0 ]; then
 fi
 
 echo "Script started at : $(date +"%F %T")"
-validate()
 
+validate
 
