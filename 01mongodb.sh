@@ -24,7 +24,6 @@ validation() {
         echo -e "$(timestamp) ==== [Error] ${2}.. ${R}Failed${N}" | tee -a $log_file
     else
         echo -e "$(timestamp) ==== [Info] ${2}.. ${Y}Success${N}" | tee -a $log_file
-    else
     fi
 }
 
