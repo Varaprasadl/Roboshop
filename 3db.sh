@@ -33,21 +33,20 @@ validation(){
     fi
     }
 
-validate $? " step"
 
 dnf module enable mysql:8.4 -y
-validate $? "dnf module enable mysql:8.4 -y step"
+validation $? "dnf module enable mysql:8.4 -y step"
 
 dnf install mysql-server -y
-validate $? "dnf install mysql-server -y step"
+validation $? "dnf install mysql-server -y step"
 
 systemctl enable mysqld
-validate $? "systemctl enable mysqld step"
+validation $? "systemctl enable mysqld step"
 
 systemctl start mysqld
-validate $? "systemctl start mysqld step"
+validation $? "systemctl start mysqld step"
 
 mysql_secure_installation --set-root-pass RoboShop@1
-validate $? "password setup"
+validation $? "password setup"
 
 mysql
