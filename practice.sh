@@ -12,6 +12,7 @@ G="\e[32m"
 Y="\e[33m"
 N="\e[0m"
 
+mkdir "$log_folder"
 timestamp() {
                 date "+%F %T"
             }
