@@ -14,5 +14,5 @@ if [ $user_id -ne 0 ]; then
     exit 1
 fi
 
-echo "Script started at : $(date +%F %T)
+echo "Script started at : $(date +%F %T)"
 
