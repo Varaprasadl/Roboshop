@@ -27,10 +27,10 @@ validation() {
     fi
 }
 
-echo "Script completed " $(timestamp)
+dnf install mongodb-org -y
+validation $? "Mongodb is insatlled"
 
-sleep 4
-echo "Script run time :: $SECONDS seconds"
 
-validation $? Function
-
+systemctl enable mongod
+systemctl start mongod
+validation $? "Mongodb is enabled & installed"
