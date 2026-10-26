@@ -34,16 +34,16 @@ validation(){
     }
 
 
-dnf module enable mysql:8.4 -y
+dnf module enable mysql:8.4 -y &>> $log_file
 validation $? "dnf module enable mysql:8.4 -y step"
 
-dnf install mysql-server -y
+dnf install mysql-server -y &>> $log_file
 validation $? "dnf install mysql-server -y step"
 
-systemctl enable mysqld
+systemctl enable mysqld &>> $log_file
 validation $? "systemctl enable mysqld step"
 
-systemctl start mysqld
+systemctl start mysqld &>> $log_file
 validation $? "systemctl start mysqld step"
 
 mysql_secure_installation --set-root-pass RoboShop@1
