@@ -50,12 +50,12 @@ do
             {
                 "Action": "UPSERT",
                 "ResourceRecordSet": {
-                    "Name": "'$Route53'",
+                    "Name": "$Route53",
                     "Type": "A",
                     "TTL": 1,
                     "ResourceRecords": [
                         {
-                            "Value": "'$id'"
+                            "Value": "$id"
                         }
                     ]
                 }
