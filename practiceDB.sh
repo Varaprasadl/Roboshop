@@ -12,7 +12,14 @@ G="\e[32m"
 Y="\e[33m"
 N="\e[0m"
 
+
 mkdir -p "$log_folder"
+
+if [ $user_id -ne 0 ]; then
+    echo "${R}Please run the script with root access!${N}"
+    exit 1
+fi
+
 timestamp() {
                 date "+%F %T"
             }
@@ -26,25 +33,18 @@ validation(){
     fi
     }
 
+cp mongo.repo /etc/yum.repos.d/mongo.repo
+validation $? "Repo adding.."
 
-for instance in $@
+dnf install mongodb-org -y
+validation $? "mongo-db installation.."
 
-do
-    instance_id=$(aws ec2 run-instances \
-  --image-id "$image_id" \
-  --instance-type "$instance_type" \
-  --security-groups "roboshop-common" "roboshop-$instance" \
-  --count 1 \
-  --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=roboshop-$instance}]" \
-  --query 'Instances[0].InstanceId' \
-  --output text)
+systemctl enable mongod
+systemctl start mongod
+validation $? "enable&install.."
 
-  echo "$instance ID :: $instance_id"
-validation $? "Instance creation"
+sed -i 's/127.0.0.1/0.0.0.0/' /etc/mongod.conf
+validation $? "enable&install.."
 
-  
-
-
-
-
-done
+systemctl restart mongod
+validation $? "restart.."
