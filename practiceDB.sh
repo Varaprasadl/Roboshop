@@ -48,3 +48,8 @@ validation $? "enable&install.."
 
 systemctl restart mongod &>> $log_file
 validation $? "restart.."
+
+systemctl status mongod | tee -a $log_file
+validation $? "status.."
+
+ss -lntp | grep 27017
