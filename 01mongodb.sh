@@ -48,5 +48,8 @@ validation $? "file update"
 systemctl restart mongod
 validation $? "Restart"
 
-dnf remove mongodb-org -y &>> $log_file
-validation $? "Mongodb is removing"
+
+echo "Script completed time :: " $(timestamp)
+echo "Script run time :: $SECONDS seconds"
+echo "Thank you!"
+
