@@ -11,6 +11,7 @@ N="\e[0m"
 
 if [ $user_id -ne 0 ]; then
     echo "Please run this script with sudo access"
+    validate()
     exit 1
 fi
 
