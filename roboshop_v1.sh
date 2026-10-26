@@ -44,23 +44,24 @@ do
             echo "Rote54 domain is $Route53"
 
     aws route53 change-resource-record-sets \
-    --hosted-zone-id "'$hosted_zone_id'" \
-    --change-batch "{
+    --hosted-zone-id $hosted_zone_id \
+    --change-batch '{
         "Changes": [
             {
                 "Action": "UPSERT",
                 "ResourceRecordSet": {
-                    "Name": "$Route53",
+                    "Name": "'$Route53'",
                     "Type": "A",
                     "TTL": 1,
                     "ResourceRecords": [
                         {
-                            "Value": "$id"
+                            "Value": "'$id'"
                         }
                     ]
                 }
             }
         ]
-    }"
+    }'
 
+    echo "R53 record is updated for $instance"
 done
