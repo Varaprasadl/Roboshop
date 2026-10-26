@@ -15,8 +15,8 @@ N="\e[0m"
 for instance in $@
 
 timestamp() {
-    date "+%F T%"
-}
+                date "+%F T%"
+            }
 
 validation(){
     if [ $1 -ne 0 ]; then
