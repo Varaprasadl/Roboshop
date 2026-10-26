@@ -48,13 +48,13 @@ validation $? "Instance creation"
 if [ $instance != "frontend" ]; then
               ip=$(aws ec2 describe-instances \
             --instance-ids "$instance_id" \
-            --query 'Reservations[0].Instances[0].PublicIpAddress' \
+            --query 'Reservations[0].Instances[0].PrivateIpAddress' \
             --output text)
             r53_record="$instance.$domain_name"
         else
               ip=$(aws ec2 describe-instances \
             --instance-ids "$instance_id" \
-            --query 'Reservations[0].Instances[0].PrivateIpAddress' \
+            --query 'Reservations[0].Instances[0].PublicIpAddress' \
             --output text)
             r53_record="$domain_name"
 fi 
