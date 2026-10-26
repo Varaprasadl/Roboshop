@@ -36,34 +36,34 @@ validation(){
 cp rabbitmq.repo /etc/yum.repos.d/rabbitmq.repo
 validation $? "Copy step"
 
-dnf install erlang rabbitmq-server -y &>>$log_file
+dnf install erlang rabbitmq-server -y &>> $log_file
 validation $? "dnf install erlang rabbitmq-server -y step"
 
 
-systemctl enable rabbitmq-server &>>$log_file
+systemctl enable rabbitmq-server &>> $log_file
 validation $? "systemctl enable rabbitmq-server step"
 
-systemctl start rabbitmq-server &>>$log_file
+systemctl start rabbitmq-server &>> $log_file
 validation $? "systemctl start rabbitmq-server step"
 
 
-rabbitmqctl add_user roboshop roboshop123  &>>$log_file
+rabbitmqctl add_user roboshop roboshop123  &>> $log_file
 validation $? "add_user step"
 
-rabbitmqctl set_permissions -p / roboshop ".*" ".*" ".*"  &>>$log_file
+rabbitmqctl set_permissions -p / roboshop ".*" ".*" ".*"  &>> $log_file
 validation $? "set_permissions step"
 
 
-rabbitmq-plugins enable rabbitmq_management  &>>$log_file
+rabbitmq-plugins enable rabbitmq_management  &>> $log_file
 validation $? "enable rabbitmq_management step"
 
-rabbitmqctl set_user_tags roboshop administrator  &>>$log_file
+rabbitmqctl set_user_tags roboshop administrator  &>> $log_file
 validation $? "set_user_tags roboshop administrator step"
 
 
-rabbitmq-plugins enable rabbitmq_management &>>$log_file
+rabbitmq-plugins enable rabbitmq_management &>> $log_file
 validation $? "enable rabbitmq_management step"
 
-rabbitmqctl set_user_tags roboshop administrator  &>>$log_file
+rabbitmqctl set_user_tags roboshop administrator  &>> $log_file
 validation $? "set_user_tags step"
 
