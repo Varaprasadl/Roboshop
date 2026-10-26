@@ -10,7 +10,7 @@ for instance in $@
 do
     instance_id=$(aws ec2 run-instances \
   --image-id "$image_id" \
-  --instance-type "$domain_name" \
+  --instance-type "$instance_type" \
   --security-groups "roboshop-common" "roboshop-$instance" \
   --count 1 \
   --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=roboshop-$instance}]" \
@@ -18,6 +18,6 @@ do
   --output text)
 
   echo "$instance_id"
-  
+
 
 done
