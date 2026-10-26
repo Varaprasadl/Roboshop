@@ -17,7 +17,7 @@ do
                 --image-id "$image_id" \
                 --instance-type "$instance_type" \
                 --security-groups "'roboshop-common' 'roboshop-"$instance"'" \
-                --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=roboshop-$instance"}]" \
+                --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value="roboshop-$instance"}]" \
                 --query 'Instances[0].InstanceId' \
                 --output text
                 )
@@ -33,7 +33,7 @@ do
                     --output text
                     )
         Route54=$instance.$domain_name
-    else
+        else
                 id=$(aws ec2 describe-instances \
                     --instance-ids $instance_id \
                     --query 'Reservations[0].Instances[0].PrivateIpAddress' \
