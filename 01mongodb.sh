@@ -23,19 +23,20 @@ validation() {
     if [ $1 -ne 0 ]; then
         echo -e "$(timestamp) ==== [Error] ${2}.. ${R}Failed${N}" | tee -a $log_file
     else
-        echo -e "$(timestamp) ==== [Info] ${2}.. ${Y}Success${N}" | tee -a $log_file
+        echo -e "$(timestamp) ==== [Info] ${2}.. ${G}Success${N}" | tee -a $log_file
     fi
 }
 
+mkdir -p $log_folder
 
 cp mongo.repo /etc/yum.repos.d/mongo.repo
 validation $? "Adding Mongodb repo"
 
 
-dnf install mongodb-org -y
+dnf install mongodb-org -y &>> $log_file
 validation $? "Mongodb is installation"
 
 
-systemctl enable mongod
-systemctl start mongod
+systemctl enable mongod &>> $log_file
+systemctl start mongod &>> $log_file
 validation $? "Mongodb is enabled & installed"
