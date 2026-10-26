@@ -24,4 +24,4 @@ validation() {
 }
 
 echo "Script completed " $(timestamp)
-validate $? Function
+validation $? Function
