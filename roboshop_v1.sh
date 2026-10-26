@@ -18,7 +18,7 @@ do
                 --instance-type $instance_type \
                 --security-groups "'roboshop-common' 'roboshop-$instance'" \
                 --count 1 \
-                --tag-specifications 'ResourceType=instance,Tags=[{Key=Name,Value='$instance'}]' \
+                --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=$instance}]" \
                 --query 'Instances[0].InstanceId' \
                 --output text
                 )
