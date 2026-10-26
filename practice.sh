@@ -1,6 +1,6 @@
 #!/bin/bash
 
-image_id="AKIA4Q3LLMDSILZ6B2B6"
+image_id="ami-0055977a6e828a4f4"
 instance_type="t3.micro"
 domain_name="kamesh.store"
 hosted_zone_id="Z10354933NXAGMDA0K5ZW"
