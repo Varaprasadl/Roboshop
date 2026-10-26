@@ -33,24 +33,25 @@ validation(){
     fi
     }
 
-dnf module disable redis -y
+dnf module disable redis -y &>> $log_file
 validation $? " dnf module disable redis -y step"
 
 
-dnf module enable redis:7 -y
+dnf module enable redis:7 -y &>> $log_file
 validation $? " dnf module enable redis:7 -y step"
 
-dnf install redis -y
+dnf install redis -y &>> $log_file
 validation $? " dnf install redis -y step"
 
 sed -i -e 's/^bind 127.0.0.1/bind 0.0.0.0/' -e 's/^protected-mode yes/protected-mode no/' /etc/redis/redis.conf
+validation $? " sed step"
 
-systemctl enable redis
+systemctl enable redis &>> $log_file
 validation $? " systemctl enable redis step"
 
-systemctl start redis
+systemctl start redis &>> $log_file
 validation $? " systemctl start redis step"
 
-systemctl status redis
+systemctl status redis &>> $log_file
 validation $? " systemctl status redis step"
 
