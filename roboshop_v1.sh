@@ -28,14 +28,14 @@ do
 
     if [ $instance -ne "frontend"]; then
                 id=$(aws ec2 describe-instances \
-                    --instance-ids $instance_id \
+                    --instance-ids "$instance_id" \
                     --query 'Reservations[0].Instances[0].PublicIpAddress' \
                     --output text
                     )
         Route54=$instance.$domain_name
         else
                 id=$(aws ec2 describe-instances \
-                    --instance-ids $instance_id \
+                    --instance-ids "$instance_id" \
                     --query 'Reservations[0].Instances[0].PrivateIpAddress' \
                     --output text
                     )
