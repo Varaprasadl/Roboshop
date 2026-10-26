@@ -13,5 +13,5 @@ timestamp() {
     date "+%F %T"
 }
 
-echo "Script stared time :: $timestamp()"
+echo "Script stared time :: " timestamp()
 
