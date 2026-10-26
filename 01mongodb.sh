@@ -29,7 +29,7 @@ validation() {
 
 echo "Script completed " $(timestamp)
 
-sleep 4 &
+sleep 4
 echo "Script run time :: $SECONDS seconds"
 
 validation $? Function
