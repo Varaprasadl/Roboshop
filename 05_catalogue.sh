@@ -33,14 +33,20 @@ if [ $user -ne 0 ]; then
     exit 1
 fi
 
-dnf module disable nodejs -y
-dnf module enable nodejs:24 -y
-dnf install nodejs -y
+dnf module disable nodejs -y   &>>   $log_file
+dnf module enable nodejs:24 -y   &>>   $log_file
+dnf install nodejs -y   &>>   $log_file
 validation $? "nodejs installation"
 
 node -v
 validation $? "nodejs installation"
 
-useradd --system --home /app --shell /sbin/nologin --comment "roboshop system user" roboshop
-validation $? "User add"
+id roboshop
+if [ $? -ne 0 ]; then
+    useradd --system --home /app --shell /sbin/nologin --comment "roboshop system user" roboshop
+    validation $? "User add"
+else
+    echo -e "$(timestamp)=======[Info]======= catalog user already added..${Y}Skipping${N}
+fi  
+
 
