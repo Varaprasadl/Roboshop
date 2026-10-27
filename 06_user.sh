@@ -63,7 +63,7 @@ cd /app
 npm install
 validation $? "Installing dependiences "
 
-sed -i "s/DOMAIN_NAME/$donamin_name/g" "$script_folder/user.service"
+sed -i "s/DOMAIN_NAME/$domain_name/g" "$script_folder/user.service"
 cp "$script_folder/user.service" "/etc/systemd/system/user.service"
 
 
