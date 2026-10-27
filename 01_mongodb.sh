@@ -5,12 +5,14 @@ log_file="$log_folder/${0}.log"
 user=$(id -u)
 domain_name="kamesh.store"
 script_folder="$(dirname $(realpath ${0}))"
-
-
 R="\e[31m"
 G="\e[32m"
 Y="\e[33m"
 N="\e[0m"
+
+echo "Script started time :: $(timestamp)"
+
+mkdir -p $log_folder
 
 timestamp() {
     date "+%F %T"
@@ -25,11 +27,7 @@ validation() {
     fi
 }
 
-echo "Script started time :: $(timestamp)"
 
-mkdir -p $log_folder
-
-validation $? "logfile creation"
 
 if [ $user -ne 0 ]; then
     echo -e "${R}Please run the script with root access!${N}"
