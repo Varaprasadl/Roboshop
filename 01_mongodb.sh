@@ -34,7 +34,7 @@ if [ $user -ne 0 ]; then
     exit 1
 fi
 
-cp "$script_folder"/mongo.repo /etc/yum.repos.d/mongo.repo
+cp "$script_folder"/mongo.repo /etc/yum.repos.d/mongo.repo &>> $log_file
 validation $? "mongo repo adding"
 
 dnf install mongodb-org -y
