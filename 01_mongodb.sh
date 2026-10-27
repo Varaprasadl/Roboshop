@@ -4,6 +4,10 @@ log_folder="/var/log/roboshop/"
 log_file="$log_folder/${0}.log"
 user=$(id -u)
 domain_name="kamesh.store"
+script_folder="$(dirname $(realpath ${0}.sh))
+
+echo "$script_folder"
+
 R="\e[31m"
 G="\e[32m"
 Y="\e[33m"
@@ -29,6 +33,11 @@ validation() {
         echo "$(timestamp)=======[Info]=======${2}..${G}Success${N}" | tee -a $log_file
     fi
 }
+
+cp mongo.repo /etc/yum.repos.d/mongo.repo
+dnf install mongodb-org -y
+
+
 
 
 
