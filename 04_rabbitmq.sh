@@ -52,6 +52,7 @@ else
 fi
 
 rabbitmqctl set_permissions -p / roboshop ".*" ".*" ".*"   &>>   $log_file
+validation $? "rabbitmq set permissions"
 
 
 echo "Script completed at :: $(timestamp)"
