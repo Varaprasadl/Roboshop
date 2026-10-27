@@ -64,7 +64,7 @@ cd /app
 unzip /tmp/catalogue.zip      
 validation $? "Unzipping catalogue"
 
-npm install &>> $log_file
+npm install 
 validation $? "Installing dependencies"
 
 sed -i 's/DOMAIN_NAME/$domain_name/g' "$script_file/catalogue.service"
