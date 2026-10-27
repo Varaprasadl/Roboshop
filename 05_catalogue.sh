@@ -82,8 +82,10 @@ cp "$script_folder/mongo.repo" /etc/yum.repos.d/mongo.repo
 dnf install mongodb-mongosh -y &>>   $log_file
 validation $? "Install mongodb"
 
-mongosh --host "mongodb.$domain_name" </app/db/master-data.js
-mongosh --host "mongodb.$domain_name" --quiet --eval 'db.getSiblingDB("catalogue").products.countDocuments()'
+mongosh --host "mongodb.$domain_name" </app/db/master-data.js &>>   $log_file
+validation $? "mongodb data load"
+
+mongosh --host "mongodb.$domain_name" --quiet --eval 'db.getSiblingDB("catalogue").products.countDocuments()' &>>   $log_file
 validation $? "mongodb data load"
 
 
