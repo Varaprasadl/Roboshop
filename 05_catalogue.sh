@@ -51,36 +51,14 @@ else
 fi  
 
 #remvoing the old code
-rm -rf /app
+rm -rf /app   &>>   $log_file
 validation $? "removing old code"
 
-mkdir -p /app
+mkdir -p /app   &>>   $log_file
 validation $? "Creating app directory"
 
-curl -L -o /tmp/catalogue.zip https://raw.githubusercontent.com/daws-92s/roboshop-documentation/refs/heads/main/artifacts/catalogue-v4.zip
+curl -L -o /tmp/catalogue.zip https://raw.githubusercontent.com/daws-92s/roboshop-documentation/refs/heads/main/artifacts/catalogue-v4.zip   &>>   $log_file
 validation $? "downloading catalogue"
-
-cd /app
-unzip /tmp/catalogue.zip      
-validation $? "Unzipping catalogue"
-
-npm install 
-validation $? "Installing dependencies"
-
-sed -i 's/DOMAIN_NAME/$domain_name/g' "$script_file/catalogue.service"
-cp "$script_file/catalogue.service" /etc/systemd/system/catalogue.service
-validation $? "Updating services file"
-
-systemctl daemon-reload &>> $log_file
-systemctl enable catalogue &>> $log_file
-systemctl start catalogue &>> $log_file
-validation $? "Starting and enabling catalogue"
-
-cp "$scripts_dir/mongo.repo" /etc/yum.repos.d/mongo.repo
-validation $? "Adding Mongo repo"
-
-dnf install mongodb-mongosh -y &>> $log_file
-validation $? "Installing MongoDB Client"
 
 
 
