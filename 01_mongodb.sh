@@ -7,7 +7,7 @@ domain_name="kamesh.store"
 script_folder="$(dirname $(realpath ${0}.sh))"
 
 echo "$script_folder"
-
+echo "${0}"
 R="\e[31m"
 G="\e[32m"
 Y="\e[33m"
