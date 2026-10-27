@@ -88,6 +88,10 @@ validation $? "mongodb data load"
 mongosh --host "mongodb.$domain_name" --quiet --eval 'db.getSiblingDB("catalogue").products.countDocuments()' &>>   $log_file
 validation $? "mongodb data load"
 
+systemctl restart catalogue
+validate $? "Restarting Catalogue"
+
+
 
 
 
