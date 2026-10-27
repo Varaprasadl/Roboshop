@@ -60,6 +60,12 @@ validation $? "Creating app directory"
 curl -L -o /tmp/catalogue.zip https://raw.githubusercontent.com/daws-92s/roboshop-documentation/refs/heads/main/artifacts/catalogue-v4.zip   &>>   $log_file
 validation $? "downloading catalogue"
 
+cd /app
+npm install   &>>   $log_file
+validation $? "Installing dependencies"
+
+
+
 
 
 
