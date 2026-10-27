@@ -39,10 +39,12 @@ dnf install redis -y    &>>   $log_file
 validation $? "redis installation"
 
 sed -i -e 's/^bind 127.0.0.1 -::1/bind 0.0.0.0 -::1/' -e 's/^protected-mode yes/protected-mode no/' /etc/redis/redis.conf
+validation $? "redis configure file updation"   
+
 
 systemctl enable redis   &>>   $log_file
 systemctl start redis   &>>   $log_file
-validation $? "redis enable & start"   &>>   $log_file
+validation $? "redis enable & start"   
 
 
 systemctl status redis    &>>   $log_file
