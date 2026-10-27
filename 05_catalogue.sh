@@ -63,10 +63,10 @@ validation $? "downloading catalogue"
 cd /app
 validation $? "Changing to /app"
 
-unzip /tmp/catalogue.zip &>> "$log_file"
+unzip /tmp/catalogue.zip &>> $log_file
 validation $? "Unzipping catalogue"
 
-npm install &>> "$log_file"
+npm install &>> $log_file
 validation $? "Installing dependencies"
 
 
