@@ -19,6 +19,7 @@ timestamp() {
 echo "Script started time :: $(timestamp)"
 
 mkdir -p $log_file
+validation $? "logfile creation"
 
 if [ $user -ne 0 ]; then
     echo -e "${R}Please run the script with root access!${N}"
