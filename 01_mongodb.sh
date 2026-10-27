@@ -18,7 +18,7 @@ echo "Script started time :: $(timestamp)"
 mkdir -p $log_file
 
 if [ $user -ne 0 ]; then
-    echo "Please run the script with root access!"
+    echo -e "${R}Please run the script with root access!${N}"
     exit 1
 fi
 
@@ -29,6 +29,7 @@ validation() {
         echo "$(timestamp)=======[Info]=======${2}..${G}Success${N}" | tee -a $log_file
     fi
 }
+
 
 
 
