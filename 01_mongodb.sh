@@ -4,7 +4,7 @@ log_folder="/var/log/roboshop/"
 log_file="$log_folder/${0}.log"
 user=$(id -u)
 domain_name="kamesh.store"
-script_folder="$(dirname $(realpath ${0}.sh))
+script_folder="$(dirname $(realpath ${0}.sh))"
 
 echo "$script_folder"
 
