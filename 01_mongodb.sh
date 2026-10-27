@@ -49,11 +49,12 @@ validation $? "mongodb configuration file update"
 systemctl restart mongod   &>>   $log_file
 validation $? "mongodb restart"
 
+echo "Script completed at :: $(timestamp)"
+echo "Script run time :: ${SECONDS} seconds"
+
 systemctl status mongod &>>   $log_file
 
 
-echo "Script completed at :: $(timestamp)"
-echo "Script run time :: ${SECONDS} seconds"
 
 
 
