@@ -66,7 +66,7 @@ validation $? "Installing dependiences "
 sed -i "s/DOMAIN_NAME/$domain_name/g" "$script_folder/user.service"
 validation $? "Updating domain name"
 
-cp "$script_folder/user.service" /etc/systemd/system/user.service
+cp "$script_folder/user.service" "/etc/systemd/system/user.service"
 validation $? "Copying service file"
 
 systemctl daemon-reload
