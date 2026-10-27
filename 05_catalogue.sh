@@ -65,21 +65,21 @@ unzip /tmp/catalogue.zip
 validation $? "Unzipping catalogue"
 
 npm install &>> $log_file
-validate $? "Installing dependencies"
+validation $? "Installing dependencies"
 
 sed -i 's/DOMAIN_NAME/$domain_name/g' "$script_file/catalogue.service"
 cp "$script_file/catalogue.service" /etc/systemd/system/catalogue.service
 validation $? "Updating services file"
 
-systemctl daemon-reload &>> $logs_file
-systemctl enable catalogue &>> $logs_file
-systemctl start catalogue &>> $logs_file
+systemctl daemon-reload &>> $log_file
+systemctl enable catalogue &>> $log_file
+systemctl start catalogue &>> $log_file
 validation $? "Starting and enabling catalogue"
 
 cp "$scripts_dir/mongo.repo" /etc/yum.repos.d/mongo.repo
 validation $? "Adding Mongo repo"
 
-dnf install mongodb-mongosh -y &>> $logs_file
+dnf install mongodb-mongosh -y &>> $log_file
 validation $? "Installing MongoDB Client"
 
 
