@@ -61,11 +61,37 @@ curl -L -o /tmp/catalogue.zip https://raw.githubusercontent.com/daws-92s/robosho
 validation $? "downloading catalogue"
 
 cd /app
-unzip /tmp/catalogue.zip
+unzip /tmp/catalogue.zip   &>>   $log_file
 validation $? "Unzipping catalogue"
 
-npm install
+npm install   &>>   $log_file
 validation $? "Installing dependencies"
+
+sed -i 's/DOMAIN_NAME/$domain_name/g' "$script_folder/catalogue.service"
+
+cp "$script_folder/catalogue.service" /etc/systemd/system/catalogue.service
+
+systemctl daemon-reload
+systemctl enable catalogue
+systemctl start catalogue
+
+validation $? "Load and start the service"
+
+cp "$script_folder/mongo.repo" /etc/yum.repos.d/mongo.repo
+
+dnf install mongodb-mongosh -y
+validation $? "Install mongodb"
+
+mongosh --host "mongodb.$domain_name" </app/db/master-data.js
+mongosh --host "mongodb.$domain_name" --quiet --eval 'db.getSiblingDB("catalogue").products.countDocuments()'
+validation $? "mongodb data load"
+
+
+
+
+
+
+
 
 
 
