@@ -82,14 +82,18 @@ cp "$script_folder/mongo.repo" /etc/yum.repos.d/mongo.repo
 dnf install mongodb-mongosh -y &>>   $log_file
 validation $? "Install mongodb"
 
-mongosh --host "mongodb.$domain_name" </app/db/master-data.js &>>   $log_file
-validation $? "mongodb data load"
+product_count=$(mongosh --host "mongodb.$domain_name" --quiet --eval 'db.getSiblingDB("catalogue").products.countDocuments()' 2>> $logs_file)
+validate $? "Connecting to MongoDB"
 
-mongosh --host "mongodb.$domain_name" --quiet --eval 'db.getSiblingDB("catalogue").products.countDocuments()' &>>   $log_file
-validation $? "mongodb data load"
+if [ "$product_count" -eq 0 ]; then
+    mongosh --host "mongodb.$domain_name" </app/db/master-data.js &>> $logs_file
+    validate $? "Loading products"
+else
+    echo -e "$(timestamp) [INFO] Products are already loaded...${Y}SKIPPING${N}"
+fi
 
 systemctl restart catalogue
-validate $? "Restarting Catalogue"
+validation $? "Restarting Catalogue"
 
 
 
