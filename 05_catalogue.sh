@@ -41,6 +41,7 @@ validation $? "nodejs installation"
 node -v
 validation $? "nodejs installation"
 
+#Knowing id is existed or not
 id roboshop
 if [ $? -ne 0 ]; then
     useradd --system --home /app --shell /sbin/nologin --comment "roboshop system user" roboshop
@@ -49,6 +50,8 @@ else
     echo -e "$(timestamp)=======[Info]======= catalog user already added..${Y}Skipping${N}"
 fi  
 
+#remvoing the old code
+rm -rf /app
 mkdir -p /app
 curl -L -o /tmp/catalogue.zip https://raw.githubusercontent.com/daws-92s/roboshop-documentation/refs/heads/main/artifacts/catalogue-v4.zip
 cd /app
