@@ -72,6 +72,10 @@ systemctl enable user
 systemctl start user
 validation $? "Reload & start "
 
+systemctl restart user
+validate $? "Restarting user"
+
+
 
 
 
