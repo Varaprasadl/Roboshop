@@ -38,7 +38,7 @@ dnf module enable nodejs:24 -y   &>>   $log_file
 dnf install nodejs -y   &>>   $log_file
 validation $? "nodejs installation"
 
-node -v
+node -v   &>>   $log_file
 validation $? "nodejs installation"
 
 #Knowing id is existed or not
@@ -56,5 +56,4 @@ mkdir -p /app
 curl -L -o /tmp/catalogue.zip https://raw.githubusercontent.com/daws-92s/roboshop-documentation/refs/heads/main/artifacts/catalogue-v4.zip
 cd /app
 unzip /tmp/catalogue.zip
-validation $? "application creation"
 
