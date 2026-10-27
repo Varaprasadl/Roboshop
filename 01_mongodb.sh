@@ -34,14 +34,6 @@ if [ $user -ne 0 ]; then
     exit 1
 fi
 
-validation() {
-    if [ $1 -ne 0 ]; then
-        echo -e "$(timestamp)=======[Error]=======${2}..${R}Failed${N}" | tee -a $log_file
-    else
-        echo -e "$(timestamp)=======[Info]=======${2}..${G}Success${N}" | tee -a $log_file
-    fi
-}
-
 cp "$script_folder"/mongo.repo /etc/yum.repos.d/mongo.repo
 validation $? "mongo repo adding"
 
