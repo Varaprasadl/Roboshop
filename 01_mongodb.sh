@@ -19,6 +19,7 @@ timestamp() {
 validation() {
     if [ $1 -ne 0 ]; then
         echo -e "$(timestamp)=======[Error]=======${2}..${R}Failed${N}" | tee -a $log_file
+        exit 1
     else
         echo -e "$(timestamp)=======[Info]=======${2}..${G}Success${N}" | tee -a $log_file
     fi
@@ -27,6 +28,9 @@ validation() {
 echo "Script started time :: $(timestamp)"
 
 mkdir -p $log_file
+
+echo "$log_file"
+
 validation $? "logfile creation"
 
 if [ $user -ne 0 ]; then
@@ -34,7 +38,7 @@ if [ $user -ne 0 ]; then
     exit 1
 fi
 
-cp "$script_folder"/mongo.repo /etc/yum.repos.d/mongo.repo &>> $log_file
+cp "$script_folder"/mongo.repo /etc/yum.repos.d/mongo.repo  &>> $log_file
 validation $? "mongo repo adding"
 
 dnf install mongodb-org -y
