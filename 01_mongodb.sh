@@ -1,6 +1,6 @@
 #!/bin/bash
 
-log_folder="/var/log/roboshop/"
+log_folder="/var/log/roboshop"
 log_file="$log_folder/${0}.log"
 user=$(id -u)
 domain_name="kamesh.store"
@@ -27,9 +27,9 @@ fi
 
 validation() {
     if [ $1 -ne 0 ]; then
-        echo "$(timestamp)=======[Error]=======${2}..${R}Failed${N}" | tee -a $log_file
+        echo -e "$(timestamp)=======[Error]=======${2}..${R}Failed${N}" | tee -a $log_file
     else
-        echo "$(timestamp)=======[Info]=======${2}..${G}Success${N}" | tee -a $log_file
+        echo -e "$(timestamp)=======[Info]=======${2}..${G}Success${N}" | tee -a $log_file
     fi
 }
 
