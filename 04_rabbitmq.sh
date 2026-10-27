@@ -45,8 +45,9 @@ validation $? "rabbitmq enable&start"
 
 
 rabbitmqctl add_user roboshop roboshop123   &>>   $log_file
-rabbitmqctl set_permissions -p / roboshop ".*" ".*" ".*"   &>>   $log_file
 validation $? "rabbitmq add user"
+
+rabbitmqctl set_permissions -p / roboshop ".*" ".*" ".*"   &>>   $log_file
 
 
 echo "Script completed at :: $(timestamp)"
