@@ -74,13 +74,13 @@ validation $? "Updating services file"
 systemctl daemon-reload &>> $logs_file
 systemctl enable catalogue &>> $logs_file
 systemctl start catalogue &>> $logs_file
-validate $? "Starting and enabling catalogue"
+validation $? "Starting and enabling catalogue"
 
 cp "$scripts_dir/mongo.repo" /etc/yum.repos.d/mongo.repo
-validate $? "Adding Mongo repo"
+validation $? "Adding Mongo repo"
 
 dnf install mongodb-mongosh -y &>> $logs_file
-validate $? "Installing MongoDB Client"
+validation $? "Installing MongoDB Client"
 
 
 
