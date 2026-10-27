@@ -27,9 +27,7 @@ validation() {
 
 echo "Script started time :: $(timestamp)"
 
-mkdir -p $log_file
-
-echo "$log_file"
+mkdir -p $log_folder
 
 validation $? "logfile creation"
 
