@@ -51,10 +51,10 @@ else
 fi  
 
 #remvoing the old code
-rm -rf /app   &>>   $log_file
+rm -rf /app
 validation $? "removing old code"
 
-mkdir -p /app   &>>   $log_file
+mkdir -p /app
 validation $? "Creating app directory"
 
 curl -L -o /tmp/catalogue.zip https://raw.githubusercontent.com/daws-92s/roboshop-documentation/refs/heads/main/artifacts/catalogue-v4.zip   &>>   $log_file
