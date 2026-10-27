@@ -34,10 +34,26 @@ if [ $user -ne 0 ]; then
 fi
 
 cp "$script_folder"/mongo.repo /etc/yum.repos.d/mongo.repo     &>>   $log_file
-validation $? "mongo repo adding"
+validation $? "mongodb repo adding"
 
 dnf install mongodb-org -y
-validation $? "mongo installation"
+validation $? "mongodb installation"
+
+systemctl enable mongod
+systemctl start mongod
+validation $? "mongodb enable & start "
+
+sed -i 's/127.0.0.1/0.0.0.0/' /etc/mongod.conf
+validation $? "mongodb configuration file update"
+
+systemctl restart mongod
+validation $? "mongodb restart"
+
+systemctl status mongod
+validation $? "mongodb status"
+
+
+
 
 
 
