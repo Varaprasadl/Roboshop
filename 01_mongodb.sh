@@ -10,8 +10,6 @@ G="\e[32m"
 Y="\e[33m"
 N="\e[0m"
 
-echo "Script started time :: $(timestamp)"
-
 mkdir -p $log_folder
 
 timestamp() {
@@ -27,6 +25,7 @@ validation() {
     fi
 }
 
+echo "Script started time :: $(timestamp)"
 
 
 if [ $user -ne 0 ]; then
@@ -34,7 +33,7 @@ if [ $user -ne 0 ]; then
     exit 1
 fi
 
-cp "$script_folder"/mongo.repo /etc/yum.repos.d/mongo.repo  &>> $log_file
+cp "$script_folder"/mongo.repo /etc/yum.repos.d/mongo.repo     &>>   $log_file
 validation $? "mongo repo adding"
 
 dnf install mongodb-org -y
