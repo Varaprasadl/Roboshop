@@ -38,8 +38,8 @@ dnf module enable nodejs:24 -y  &>> $log_file
 dnf install nodejs -y  &>> $log_file
 validation $? "nodejs installation"
 
-id roboshp
-if [ $? -ne 0]; then
+id roboshop
+if [ $? -ne 0 ]; then
     useradd --system --home /app --shell /sbin/nologin --comment "roboshop system user" roboshop
     validation $? "User id added"
 else
@@ -64,8 +64,10 @@ npm install
 validation $? "Installing dependiences "
 
 sed -i "s/DOMAIN_NAME/$domain_name/g" "$script_folder/user.service"
-cp "$script_folder/user.service" "/etc/systemd/system/user.service"
+validation $? "Updating domain name"
 
+cp "$script_folder/user.service" /etc/systemd/system/user.service
+validation $? "Copying service file"
 
 systemctl daemon-reload
 systemctl enable user
@@ -73,7 +75,7 @@ systemctl start user
 validation $? "Reload & start "
 
 systemctl restart user
-validate $? "Restarting user"
+validation $? "Restarting user"
 
 
 
