@@ -4,10 +4,9 @@ log_folder="/var/log/roboshop/"
 log_file="$log_folder/${0}.log"
 user=$(id -u)
 domain_name="kamesh.store"
-script_folder="$(dirname $(realpath ${0}.sh))"
+script_folder="$(dirname $(realpath ${0}))"
 
-echo "$script_folder"
-echo "${0}"
+
 R="\e[31m"
 G="\e[32m"
 Y="\e[33m"
@@ -34,8 +33,11 @@ validation() {
     fi
 }
 
-cp mongo.repo /etc/yum.repos.d/mongo.repo
+cp "$script_folder"/mongo.repo /etc/yum.repos.d/mongo.repo
+validation $? "mongo repo adding"
+
 dnf install mongodb-org -y
+validation $? "mongo installation"
 
 
 
