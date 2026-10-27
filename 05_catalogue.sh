@@ -61,8 +61,6 @@ curl -L -o /tmp/catalogue.zip https://raw.githubusercontent.com/daws-92s/robosho
 validation $? "downloading catalogue"
 
 cd /app
-validation $? "Changing to /app"
-
 unzip /tmp/catalogue.zip &>> $log_file
 validation $? "Unzipping catalogue"
 
