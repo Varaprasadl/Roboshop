@@ -33,17 +33,17 @@ if [ $user -ne 0 ]; then
     exit 1
 fi
 
-dnf module enable mysql:8.4 -y
-dnf install mysql-server -y
-validation $? "mysql installation"
+dnf module enable mysql:8.4 -y   &>>   $log_file
+dnf install mysql-server -y   &>>   $log_file
+validation $? "mysql installation"   
 
-systemctl enable mysqld
-systemctl start mysqld
+systemctl enable mysqld   &>>   $log_file
+systemctl start mysqld   &>>   $log_file
 validation $? "mysql enable & start"
 
 
-mysql_secure_installation --set-root-pass RoboShop@1
-validation $? "mysql enable & start"
+mysql_secure_installation --set-root-pass RoboShop@1    &>>   $log_file
+validation $? "mysql root password"
 
 echo "Script completed at :: $(timestamp)"
 echo "Script run time :: ${SECONDS} seconds"
