@@ -52,8 +52,23 @@ fi
 
 #remvoing the old code
 rm -rf /app
+validation $? "removing old code"
+
 mkdir -p /app
+validation $? "Creating app directory"
+
 curl -L -o /tmp/catalogue.zip https://raw.githubusercontent.com/daws-92s/roboshop-documentation/refs/heads/main/artifacts/catalogue-v4.zip
+validation $? "downloading catalogue"
+
 cd /app
-unzip /tmp/catalogue.zip
+unzip /tmp/catalogue.zip      &>>   $log_file
+validation $? "Unzipping catalogue"
+
+sed i 's/DOMAIN_NAME/$domain_name/g'
+cp "$script_file"/catalogue.service /etc/systemd/system/catalogue.service
+validation $? "Adding dependencies"
+
+
+
+
 
