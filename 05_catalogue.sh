@@ -64,9 +64,25 @@ cd /app
 unzip /tmp/catalogue.zip      &>>   $log_file
 validation $? "Unzipping catalogue"
 
-sed i 's/DOMAIN_NAME/$domain_name/g'
-cp "$script_file"/catalogue.service /etc/systemd/system/catalogue.service
-validation $? "Adding dependencies"
+npm install &>> $log_file
+validate $? "Installing dependencies"
+
+sed i 's/DOMAIN_NAME/$domain_name/g' "$script_file/catalogue.service"
+cp "$script_file/catalogue.service" /etc/systemd/system/catalogue.service
+validation $? "Updating services file"
+
+systemctl daemon-reload &>> $logs_file
+systemctl enable catalogue &>> $logs_file
+systemctl start catalogue &>> $logs_file
+validate $? "Starting and enabling catalogue"
+
+cp "$scripts_dir/mongo.repo" /etc/yum.repos.d/mongo.repo
+validate $? "Adding Mongo repo"
+
+dnf install mongodb-mongosh -y &>> $logs_file
+validate $? "Installing MongoDB Client"
+
+
 
 
 
