@@ -41,4 +41,6 @@ validation $? "nodejs installation"
 node -v
 validation $? "nodejs installation"
 
+useradd --system --home /app --shell /sbin/nologin --comment "roboshop system user" roboshop
+validation $? "User add"
 
