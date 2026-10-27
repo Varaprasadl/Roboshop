@@ -49,4 +49,9 @@ else
     echo -e "$(timestamp)=======[Info]======= catalog user already added..${Y}Skipping${N}"
 fi  
 
+mkdir -p /app
+curl -L -o /tmp/catalogue.zip https://raw.githubusercontent.com/daws-92s/roboshop-documentation/refs/heads/main/artifacts/catalogue-v4.zip
+cd /app
+unzip /tmp/catalogue.zip
+validation $? "application creation"
 
