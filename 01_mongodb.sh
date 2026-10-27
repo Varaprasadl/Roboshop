@@ -1,6 +1,6 @@
 #!/bin/bash
 
-log_folder="/var/log/roboshop"
+log_folder="var/log/roboshop"
 log_file="$log_folder/${0}.log"
 user=$(id -u)
 domain_name="kamesh.store"
