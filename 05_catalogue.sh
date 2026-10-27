@@ -71,15 +71,15 @@ sed -i 's/DOMAIN_NAME/$domain_name/g' "$script_folder/catalogue.service"
 
 cp "$script_folder/catalogue.service" /etc/systemd/system/catalogue.service
 
-systemctl daemon-reload
-systemctl enable catalogue
-systemctl start catalogue
+systemctl daemon-reload &>>   $log_file
+systemctl enable catalogue &>>   $log_file
+systemctl start catalogue &>>   $log_file
 
 validation $? "Load and start the service"
 
 cp "$script_folder/mongo.repo" /etc/yum.repos.d/mongo.repo
 
-dnf install mongodb-mongosh -y
+dnf install mongodb-mongosh -y &>>   $log_file
 validation $? "Install mongodb"
 
 mongosh --host "mongodb.$domain_name" </app/db/master-data.js
