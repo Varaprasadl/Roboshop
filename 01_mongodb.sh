@@ -25,7 +25,7 @@ validation() {
     fi
 }
 
-echo "Script started time :: $(timestamp)"
+echo "Script started at :: $(timestamp)"
 
 
 if [ $user -ne 0 ]; then
@@ -36,24 +36,24 @@ fi
 cp "$script_folder"/mongo.repo /etc/yum.repos.d/mongo.repo     &>>   $log_file
 validation $? "mongodb repo adding"
 
-dnf install mongodb-org -y
+dnf install mongodb-org -y   &>>   $log_file
 validation $? "mongodb installation"
 
-systemctl enable mongod
-systemctl start mongod
+systemctl enable mongod   &>>   $log_file
+systemctl start mongod    &>>   $log_file
 validation $? "mongodb enable & start "
 
 sed -i 's/127.0.0.1/0.0.0.0/' /etc/mongod.conf
 validation $? "mongodb configuration file update"
 
-systemctl restart mongod
+systemctl restart mongod   &>>   $log_file
 validation $? "mongodb restart"
 
-systemctl status mongod
-validation $? "mongodb status"
+systemctl status mongod &>>   $log_file
 
 
-
+echo "Script completed at :: $(timestamp)"
+echo "Script run time :: ${SECONDS} seconds"
 
 
 
