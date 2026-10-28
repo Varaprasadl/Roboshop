@@ -53,7 +53,7 @@ cd /usr/share/nginx/html
 unzip /tmp/frontend.zip   &>> $log_file
 validation $? "Unzipping code"
 
-sed -i "/s/DOMAIN_NAME/$domain_name/g" "$script_folder/roboshop.conf"      &>> $log_file
+sed -i "s/DOMAIN_NAME/$domain_name/g" "$script_folder/roboshop.conf"     &>> $log_file
 validation $? "Substituting domain"
 
 
