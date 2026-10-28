@@ -36,29 +36,29 @@ fi
 dnf module disable nginx -y   &>> $log_file
 dnf module enable nginx:1.26 -y   &>> $log_file
 dnf install nginx -y   &>> $log_file
-validate $? "nginx installing"
+validation $? "nginx installing"
 
 systemctl enable nginx   &>> $log_file
 systemctl start nginx   &>> $log_file
-validate $? "nignx enable & start"
+validation $? "nignx enable & start"
 
 rm -rf /usr/share/nginx/html/*
-validate $? "Removing default content"
+validation $? "Removing default content"
 
 curl -L -o /tmp/frontend.zip https://raw.githubusercontent.com/daws-92s/roboshop-documentation/refs/heads/main/artifacts/frontend-v4.zip   &>> $log_file
-validate $? "Downloading code"
+validation $? "Downloading code"
 
 
 cd /usr/share/nginx/html
 unzip /tmp/frontend.zip   &>> $log_file
-validate $? "Unzipping code"
+validation $? "Unzipping code"
 
 sed -i "/s/DOMAIN_NAME/$domain_name/g" "$script_folder/roboshop.conf"      &>> $log_file
-validate $? "Substituting domain"
+validation $? "Substituting domain"
 
 
 cp "$script_folder/roboshop.conf" /etc/nginx/default.d/roboshop.conf   &>> $log_file
-validate $? "Coping conf"
+validation $? "Coping conf"
 
 
 nginx -t
