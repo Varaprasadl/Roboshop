@@ -33,25 +33,12 @@ if [ $user -ne 0 ]; then
     exit 1
 fi
 
-dnf module disable nodejs -y   &>> $log_file
-dnf module enable nodejs:24 -y  &>> $log_file
-dnf install nodejs -y  &>> $log_file
+dnf module disable nodejs -y     &>> $log_file
+dnf module enable nodejs:24 -y     &>> $log_file
+dnf install nodejs -y      &>> $log_file
 validation $? "nodejs installation"
 
-id roboshop
-if [ $? -ne 0 ]; then
-    useradd --system --home /app --shell /sbin/nologin --comment "roboshop system user" roboshop
-    validation $? "User id added"
-else
-    echo -e "$(timestamp) ====== [Info] ===== user already exist."
-fi
-
-dnf module disable nodejs -y
-dnf module enable nodejs:24 -y
-dnf install nodejs -y
-validation $? "nodejs installation"
-
-id roboshop
+id roboshop   &>> $log_file
 
 if [ $? -ne 0 ]; then
     useradd --system --home /app --shell /sbin/nologin --comment "roboshop system user" roboshop
@@ -66,18 +53,19 @@ validation $? "Removing old code"
 mkdir /app
 validation $? "App directory created"
 
-curl -L -o /tmp/user.zip https://raw.githubusercontent.com/daws-92s/roboshop-documentation/refs/heads/main/artifacts/user-v4.zip
+curl -L -o /tmp/user.zip https://raw.githubusercontent.com/daws-92s/roboshop-documentation/refs/heads/main/artifacts/user-v4.zip   &>> $log_file
 validation $? "Downloading code"
 
-unzip /tmp/user.zip
+cd /app
+unzip /tmp/user.zip  &>> $log_file
 validation $? "Unzipping code"
 
 cd /app
-npm install
+npm install   &>> $log_file
 validation $? "installing dependencies"
 
-sed -i "s/DOMAIN_NAME/$domain_name/g" "$script_folder/user.services"
-cp "$script_folder/user.services" /etc/systemd/system/user.service
+sed -i "s/DOMAIN_NAME/$domain_name/g" "$script_folder/user.services"  &>> $log_file
+cp "$script_folder/user.services" /etc/systemd/system/user.service   &>> $log_file
 
 systemctl daemon-reload
 systemctl enable user
