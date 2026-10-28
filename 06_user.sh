@@ -47,10 +47,10 @@ else
     echo -e "$(timestamp) ====== [Info] ===== User already exist ${Y}Skipping${N}"
 fi
 
-rm -rf /app
+rm -rf /app   &>> $log_file
 validation $? "Removing old code"
 
-mkdir /app
+mkdir -p /app   &>> $log_file
 validation $? "App directory created"
 
 curl -L -o /tmp/user.zip https://raw.githubusercontent.com/daws-92s/roboshop-documentation/refs/heads/main/artifacts/user-v4.zip   &>> $log_file
