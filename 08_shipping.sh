@@ -33,71 +33,71 @@ if [ $user -ne 0 ]; then
     exit 1
 fi
 
-dnf module enable maven:3.9 -y
-dnf install maven java-25-openjdk-devel -y
-validate $? "Installing java & maven"
+dnf module enable maven:3.9 -y   &>> $log_file
+dnf install maven java-25-openjdk-devel -y   &>> $log_file
+validation $? "Installing java & maven"
 
-alternatives --set java /
-validate $? "Updating java25"
+alternatives --set java "/usr/lib/jvm/java-25-openjdk/bin/java"  &>> $log_file
+validation $? "Updating java25"
 
 echo "export JAVA_HOME=$(dirname $(dirname $(readlink -f /usr/bin/java)))" > /etc/profile.d/java.sh
 source /etc/profile.d/java.sh
 echo $JAVA_HOME
-validate $? "Setting Java_home for maven"
+validation $? "Setting Java_home for maven"
 
 
 java -version
 mvn -v
-validate $? "Version checking"
+validation $? "Version checking"
 
-id roboshop
+id roboshop  &>> $log_file
 if [ $? -ne 0 ];then
     useradd --system --home /app --shell /sbin/nologin --comment "roboshop system user" roboshop
-    validate $? "Adding App user"
+    validation $? "Adding App user"
 else
     echo -e "$(timestamp) ======= [Info] ======= User already added ${Y}Skipping${N}"
 fi
 
-rm -rf /app
+rm -rf /app   &>> $log_file
 validation $? "Old code removing"
 
-mkdir /app
+mkdir /app   &>> $log_file
 validation $? "App dir creation"
 
-curl -L -o /tmp/shipping.zip https://raw.githubusercontent.com/daws-92s/roboshop-documentation/refs/heads/main/artifacts/shipping-v4.zip
+curl -L -o /tmp/shipping.zip https://raw.githubusercontent.com/daws-92s/roboshop-documentation/refs/heads/main/artifacts/shipping-v4.zip   &>> $log_file
 validation $? "Downloading code"
 
 cd /app
-unzip /tmp/shipping.zip
+unzip /tmp/shipping.zip   &>> $log_file
 validation $? "Unzipping code"
 
 cd /app
-mvn clean package
-mv target/shipping.jar shipping.jar
+mvn clean package   &>> $log_file
+mv target/shipping.jar shipping.jar    &>> $log_file
 validation $? "Installing dependiences"
 
-dnf install mysql -y
+dnf install mysql -y    &>> $log_file
 validation $? "Installing mysql"
 
-Count=$(mysql -u username -p -e "SELECT COUNT(*) FROM database_name.table_name;")
+Count=$(mysql -u username -p -e "SELECT COUNT(*) FROM database_name.table_name;")   &>> $log_file
 
 if [ -z "$count" ] || [ "$count" -ne 0 ]; then
-    mysql -h "shipping.$domain_name" -uroot -pRoboShop@1 < /app/db/master-data.sql
+    mysql -h "shipping.$domain_name" -uroot -pRoboShop@1 < /app/db/master-data.sql    &>> $log_file
     validation $? "DB connection"
 else
     echo "DB already loaded"
 fi
 
-mysql -h "shipping.$domain_name" -uroot -pRoboShop@1 < /app/db/app-user.sql
+mysql -h "shipping.$domain_name" -uroot -pRoboShop@1 < /app/db/app-user.sql   &>> $log_file
 validation $? "My SQL conneted"
 
-sed -i "s/DOMAIN_NAME/.$domain_name/g" "$script_folder/shipping.service"
-cp "$script_folder/shipping.service" /etc/systemd/system/shipping.service
+sed -i "s/DOMAIN_NAME/.$domain_name/g" "$script_folder/shipping.service"   &>> $log_file
+cp "$script_folder/shipping.service" /etc/systemd/system/shipping.service   &>> $log_file
 
 
-systemctl daemon-reload
-systemctl enable shipping
-systemctl start shipping
+systemctl daemon-reload   &>> $log_file
+systemctl enable shipping   &>> $log_file
+systemctl start shipping   &>> $log_file
 
 validation $? "Shipping enable & start"
 
