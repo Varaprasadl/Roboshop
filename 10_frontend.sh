@@ -42,7 +42,7 @@ systemctl enable nginx   &>> $log_file
 systemctl start nginx   &>> $log_file
 validation $? "nignx enable & start"
 
-rm -rf /usr/share/nginx/html/*
+rm -rf /usr/share/nginx/html/*  &>> $log_file
 validation $? "Removing default content"
 
 curl -L -o /tmp/frontend.zip https://raw.githubusercontent.com/daws-92s/roboshop-documentation/refs/heads/main/artifacts/frontend-v4.zip   &>> $log_file
