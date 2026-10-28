@@ -1,6 +1,8 @@
 #!/bin/bash
 
-image_id="ami-0055977a6e828a4f4"
+#ami-0eec78ea4cbaaf5bd - RHEL10
+#image_id="ami-0055977a6e828a4f4" - RHEL - 9
+image_id="ami-0eec78ea4cbaaf5bd"
 instance_type="t3.micro"
 domain_name="kamesh.store"
 hosted_zone_id="Z10354933NXAGMDA0K5ZW"
