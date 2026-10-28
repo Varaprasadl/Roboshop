@@ -100,10 +100,3 @@ systemctl enable shipping   &>> $log_file
 systemctl start shipping   &>> $log_file
 
 validation $? "Shipping enable & start"
-
-
-
-
-
-
-
