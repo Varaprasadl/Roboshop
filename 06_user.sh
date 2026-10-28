@@ -46,37 +46,52 @@ else
     echo -e "$(timestamp) ====== [Info] ===== user already exist."
 fi
 
+dnf module disable nodejs -y
+dnf module enable nodejs:24 -y
+dnf install nodejs -y
+validation $? "nodejs installation"
+
+id roboshop
+
+if [ $? -ne 0 ]; then
+    useradd --system --home /app --shell /sbin/nologin --comment "roboshop system user" roboshop
+    validation $? "Adding application user"
+else
+    echo -e "$(timestamp) ====== [Info] ===== User already exist ${Y}Skipping${N}"
+fi
+
 rm -rf /app
 validation $? "Removing old code"
 
-mkdir -p /app
-validation $? "App directory added"
+mkdir /app
+validation $? "App directory created"
 
 curl -L -o /tmp/user.zip https://raw.githubusercontent.com/daws-92s/roboshop-documentation/refs/heads/main/artifacts/user-v4.zip
-validation $? "downloading code"
+validation $? "Downloading code"
 
-cd /app
 unzip /tmp/user.zip
-validation $? "code unzipping "
+validation $? "Unzipping code"
 
 cd /app
 npm install
-validation $? "Installing dependiences "
+validation $? "installing dependencies"
 
-sed -i "s/DOMAIN_NAME/$domain_name/g" "$script_folder/user.service"
-validation $? "Updating domain name"
-
-cp "$script_folder/user.service" "/etc/systemd/system/user.service"
-validation $? "Copying service file"
+sed -i "s/DOMAIN_NAME/$domain_name/g" "$script_folder/user.services"
+cp "$script_folder/user.services" /etc/systemd/system/user.service
 
 systemctl daemon-reload
 systemctl enable user
 systemctl start user
-validation $? "Reload & start "
 
-systemctl restart user
-validation $? "Restarting user"
+validation $? "enable & start user"
 
+
+
+
+
+
+
+ 
 
 
 

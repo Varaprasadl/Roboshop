@@ -86,7 +86,7 @@ product_count=$(mongosh --host "mongodb.$domain_name" --quiet --eval 'db.getSibl
 validation $? "Connecting to MongoDB"
 
 if [ "$product_count" -eq 0 ]; then
-    mongosh --host "mongodb.$domain_name" </app/db/master-data.js &>> $logs_file
+    mongosh --host "mongodb.$domain_name" </app/db/master-data.js &>> $log_file
     validation $? "Loading products"
 else
     echo -e "$(timestamp) [INFO] Products are already loaded...${Y}SKIPPING${N}"
@@ -94,20 +94,3 @@ fi
 
 systemctl restart catalogue
 validation $? "Restarting Catalogue"
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
