@@ -33,36 +33,33 @@ if [ $user -ne 0 ]; then
     exit 1
 fi
 
-dnf module disable nginx -y
-dnf module enable nginx:1.26 -y
-dnf install nginx -y
+dnf module disable nginx -y   &>> $log_file
+dnf module enable nginx:1.26 -y   &>> $log_file
+dnf install nginx -y   &>> $log_file
 validate $? "nginx installing"
 
-systemctl enable nginx
-systemctl start nginx
+systemctl enable nginx   &>> $log_file
+systemctl start nginx   &>> $log_file
 validate $? "nignx enable & start"
 
 rm -rf /usr/share/nginx/html/*
 validate $? "Removing default content"
 
-curl -L -o /tmp/frontend.zip https://raw.githubusercontent.com/daws-92s/roboshop-documentation/refs/heads/main/artifacts/frontend-v4.zip
+curl -L -o /tmp/frontend.zip https://raw.githubusercontent.com/daws-92s/roboshop-documentation/refs/heads/main/artifacts/frontend-v4.zip   &>> $log_file
 validate $? "Downloading code"
 
 
 cd /usr/share/nginx/html
-unzip /tmp/frontend.zip
+unzip /tmp/frontend.zip   &>> $log_file
 validate $? "Unzipping code"
 
-sed -i "/s/DOMAIN_NAME/$domain_name/g" "$script_folder/roboshop.conf"
+sed -i "/s/DOMAIN_NAME/$domain_name/g" "$script_folder/roboshop.conf"      &>> $log_file
 validate $? "Substituting domain"
 
 
-cp "$script_folder/roboshop.conf" /etc/nginx/default.d/roboshop.conf
+cp "$script_folder/roboshop.conf" /etc/nginx/default.d/roboshop.conf   &>> $log_file
 validate $? "Coping conf"
 
 
 nginx -t
 systemctl restart nginx
-
-
-
